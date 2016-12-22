@@ -1,0 +1,25 @@
+{
+  "name": "book_trading",
+  "version": "1.0.0",
+  "description": "Book Trading Club is another FCC Project",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stanleyyylau/book_trading.git"
+  },
+  "author": "Stanley Lau <stanleyyylau@gmail.com> (https://github.com/stanleyyylau)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/stanleyyylau/book_trading/issues"
+  },
+  "homepage": "https://github.com/stanleyyylau/book_trading#readme",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "mongoose": "^4.7.4"
+  }
+}
