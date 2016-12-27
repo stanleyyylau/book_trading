@@ -1,7 +1,12 @@
+var Book = require('./../models/Book');
+var User = require('./../models/User');
 
 
+describe('Book', function(){
+  it('I can view all books posted by every user', function () {
+    throw new Error("fail");
+  })
 
-describe('book', function(){
   it('owner of the book can propose a trade with something else by providing a book id', function(){
     throw new Error("fail");
   })
