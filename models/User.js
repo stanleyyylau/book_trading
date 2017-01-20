@@ -8,7 +8,10 @@ var UserSchema = new mongoose.Schema({
   books: [{
     type: Schema.Types.ObjectId,
     ref: 'Book'
-  }]
+  }],
+  fullName: String,
+  city: String,
+  state: String
 })
 
 
@@ -16,7 +19,7 @@ var UserSchema = new mongoose.Schema({
  * instance method, whoever use this function to add a book
  * will become the owner of the newly added book
  * @param bookTitle
- * @returns {Promise.<*>}
+ * @returns {Promise.<*>}   result[0] is the current user
  */
 UserSchema.methods.addBook = function (bookTitle) {
   var newBook = new Book({
