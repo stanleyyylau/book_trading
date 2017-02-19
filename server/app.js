@@ -15,6 +15,7 @@ app.use(express.static(path.join(__dirname + "/../client/build")));
 // API routes here
 app.get('/api/allbooks', apiController.allBooks)
 app.post('/api/searchbook', apiController.searchBook)
+app.get('/api/book/:id', apiController.getOneBook)
 
 app.post('/api/register', middleware.loggedOut, apiController.register)
 app.post('/api/login', middleware.loggedOut, apiController.login)

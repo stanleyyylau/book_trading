@@ -12,6 +12,18 @@ module.exports.allBooks = function(req, res) {
     })
 }
 
+module.exports.getOneBook = function(req, res) {
+    let bookId = req.params.id
+    Book.findById(bookId).then((book) => {
+        res.json(book)
+    }).catch((err) => {
+        res.json({
+            errorCode: 1,
+            error: err
+        })
+    })
+}
+
 module.exports.searchBook = function(req, res) {
     let bookTitle = req.body.title
     books.search(bookTitle, function(error, results) {
@@ -28,8 +40,9 @@ module.exports.addBook = function(req, res) {
         owner: req.decoded.id,
         title: req.body.title || "unknown title",
         author: req.body.author || "unknown author",
-        pages: req.body.pages || "unknown description",
-        image: req.body.image || "unknown image"
+        pages: req.body.pages || "unknown page number",
+        image: req.body.image || "unknown image",
+        description: req.body.description || "unknown description"
     })
 
     User.findById(req.decoded.id).then((user) => {
