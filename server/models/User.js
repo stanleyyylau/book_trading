@@ -47,8 +47,8 @@ UserSchema.statics.authenticate = function (email, password, callback) {
         return callback(error);
       }
       if (!user) {
-        let error = new Error("User not found");
-        error.status = 401;
+        let error = new Error();
+        error.message = "User not found";
         return callback(error);
       }
       bcrypt.compare(password, user.password, function (error, match) {
@@ -57,8 +57,8 @@ UserSchema.statics.authenticate = function (email, password, callback) {
         } else if (error) {
           return next(error);
         } else {
-          let error = new Error("Credentials don't match");
-          error.status = 401;
+          let error = new Error();
+          error.message = "Credentials don't match";
           return callback(error);
         }
       });

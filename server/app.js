@@ -5,6 +5,7 @@ const path = require('path')
 
 const config = require('./config/config')();
 const apiController = require('./controllers/apiController');
+const middleware = require('./middleware/authentication');
 
 const app = express();
 // Global middleware
@@ -14,9 +15,12 @@ app.use(express.static(path.join(__dirname + "/../client/build")));
 // API routes here
 app.get('/api/allbooks', apiController.allBooks)
 app.post('/api/searchbook', apiController.searchBook)
-app.post('/api/addbook', apiController.addBook)
-app.post('/api/register', apiController.register)
-app.post('/api/login', apiController.login)
+
+app.post('/api/register', middleware.loggedOut, apiController.register)
+app.post('/api/login', middleware.loggedOut, apiController.login)
+app.get('/api/logout', middleware.loggedIn, apiController.logout)
+
+app.post('/api/addbook', middleware.loggedIn, apiController.addBook)
 
 // TODO: Swap for server-side universal react routing
 app.get("/*", (req, res, next) => {
@@ -29,9 +33,12 @@ app.use((req, res) => {
 })
 
 app.use((err, req, res, next) => {
-  console.error('got error')
-  console.log(err)
-  res.status(500).send('Something broke!')
+  console.log('Error handling begin....')
+  console.log(err.errorMsg)
+  res.status(500).json({
+    errorCode: 1,
+    errorMsg: err.message
+  })
 })
 
 module.exports = app;

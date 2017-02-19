@@ -25,7 +25,8 @@ module.exports.searchBook = function(req, res) {
 
 module.exports.addBook = function(req, res) {
     res.json({
-        hi: "hi"
+        hi: "hi",
+        decoded: req.decoded
     })
 }
 
@@ -67,4 +68,16 @@ module.exports.login = function(req, res, next){
         });
         }
     });    
+}
+
+module.exports.logout = function(req, res, next){
+  // Delete the token for request header
+  if (req.decoded) {
+    req.decoded = null;
+  }
+  // Todo, something need to happen on the client side to delete token in header or token in request body
+  res.json({
+      errorCode: 0,
+      msg: "Logged out from system"
+  })
 }
