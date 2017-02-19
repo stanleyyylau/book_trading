@@ -110,3 +110,12 @@ module.exports.logout = function(req, res, next){
       msg: "Logged out from system"
   })
 }
+
+module.exports.getAllMyBooks = function(req, res){
+    User.findById(req.decoded.id).populate('books').then((user)=>{
+        res.json({
+            errorCode: 0,
+            books: user.books
+        })
+    })
+}

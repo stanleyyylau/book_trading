@@ -20,6 +20,7 @@ app.get('/api/book/:id', apiController.getOneBook)
 app.post('/api/register', middleware.loggedOut, apiController.register)
 app.post('/api/login', middleware.loggedOut, apiController.login)
 app.get('/api/logout', middleware.loggedIn, apiController.logout)
+app.get('/api/mybooks', middleware.loggedIn, apiController.getAllMyBooks)
 
 app.post('/api/addbook', middleware.loggedIn, apiController.addBook)
 
