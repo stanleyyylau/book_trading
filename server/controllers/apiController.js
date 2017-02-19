@@ -24,10 +24,26 @@ module.exports.searchBook = function(req, res) {
 }
 
 module.exports.addBook = function(req, res) {
-    res.json({
-        hi: "hi",
-        decoded: req.decoded
+    let newBook = new Book({
+        owner: req.decoded.id,
+        title: req.body.title || "unknown title",
+        author: req.body.author || "unknown author",
+        pages: req.body.pages || "unknown description",
+        image: req.body.image || "unknown image"
     })
+
+    User.findById(req.decoded.id).then((user) => {
+        user.books.push(newBook._id)
+        return user.save()
+    }).then((user) => {
+        return newBook.save()
+    }).then((newBook)=>{
+        res.json({
+            errorCode: 0,
+            msg: "Adding new book success!"
+        })
+    })
+
 }
 
 module.exports.register = function(req, res) {
