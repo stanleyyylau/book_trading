@@ -1,19 +1,61 @@
 const mongoose = require('mongoose');
+const bcrypt = require("bcrypt");
+
 const Book = require('./Book');
 var Schema = mongoose.Schema;
 
 var UserSchema = new mongoose.Schema({
   username: String,
+  email: {
+    type: String,
+    unique: true,
+    required: true,
+    trim: true
+  },
   password: String,
+  city: String,
+  state: String,
   books: [{
     type: Schema.Types.ObjectId,
     ref: 'Book'
   }],
-  fullName: String,
-  city: String,
-  state: String
+  tradeReceived: [{
+    mine: {
+      type: Schema.Types.ObjectId,
+      ref: 'Book'
+    },
+    theirs: {
+      type: Schema.Types.ObjectId,
+      ref: 'Book'
+  }}],
+  tradeSent: [{
+    mine: {
+      type: Schema.Types.ObjectId,
+      ref: 'Book'
+    },
+    theirs: {
+      type: Schema.Types.ObjectId,
+      ref: 'Book'
+    }
+  }]
 })
 
+
+UserSchema.pre("save", function (next) {
+  const user = this;
+  if (!user.isModified("password")) {
+    return next();
+  }
+  bcrypt.genSalt(10, function (error, salt) {
+    bcrypt.hash(user.password, salt, function (error, hash) {
+      if (error) {
+        return next(error);
+      }
+      user.password = hash;
+      next();
+    });
+  });
+});
 
 /**
  * instance method, whoever use this function to add a book

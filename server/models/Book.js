@@ -3,18 +3,15 @@ const Schema = mongoose.Schema;
 
 const BookSchema = new mongoose.Schema({
   title: String,
+  author: String,
+  pages: String,
+  description: String,
+  image: String,
+  availability: { type: Boolean, default: true },
   owner: {
     type: Schema.Types.ObjectId,
     ref: 'User'
-  },
-  tradeSent: [{
-    type: Schema.Types.ObjectId,
-    ref: 'Book'
-  }],
-  tradeReceive: [{
-    type: Schema.Types.ObjectId,
-    ref: 'Book'
-  }]
+  }
 })
 
 const Book = mongoose.model('Book', BookSchema);

@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "nodemon --exec 'mocha -R spec'",
-    "start": "node server.js"
+    "start": "node server/server.js"
   },
   "repository": {
     "type": "git",
@@ -19,8 +19,11 @@
   "homepage": "https://github.com/stanleyyylau/book_trading#readme",
   "dependencies": {
     "assert": "^1.4.1",
+    "bcrypt": "^1.0.2",
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
+    "google-books-search": "^0.3.1",
+    "jsonwebtoken": "^7.3.0",
     "mongoose": "^4.7.4"
   }
 }
