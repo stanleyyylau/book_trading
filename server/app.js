@@ -16,6 +16,7 @@ app.get('/api/allbooks', apiController.allBooks)
 app.post('/api/searchbook', apiController.searchBook)
 app.post('/api/addbook', apiController.addBook)
 app.post('/api/register', apiController.register)
+app.post('/api/login', apiController.login)
 
 // TODO: Swap for server-side universal react routing
 app.get("/*", (req, res, next) => {

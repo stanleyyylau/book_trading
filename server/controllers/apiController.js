@@ -2,7 +2,7 @@ const Book = require('./../models/Book')
 const User = require('./../models/User')
 
 const books = require('google-books-search');
-
+const jwt = require("jsonwebtoken");
 
 module.exports.allBooks = function(req, res) {
     Book.find({}).then((books)=> {
@@ -48,4 +48,23 @@ module.exports.register = function(req, res) {
                 })
             })
     })
+
+    // Todo, might do someting on the client side so user will automatically log in after signing up
+}
+
+module.exports.login = function(req, res, next){
+    // Authenticate mathod on UserSchame on bcrypt's compare function to make sure password provided is correct
+    User.authenticate(req.body.email, req.body.password, (error, user) => {
+        if (error || !user) {
+        res.json({ errorCode: 1, errorMsg: "Invalid username or password" })
+        } else {
+        // Return a token if user is authenticated
+        jwt.sign({ username: user.username, id: user._id }, process.env.JWT_SECRET, { algorithm: "HS256", expiresIn: "5 days"}, (error, token) => {
+            if (error) {
+            return next(error);
+            }
+            res.status(200).json({ errorCode: 0, token: token });
+        });
+        }
+    });    
 }
