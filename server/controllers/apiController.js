@@ -189,6 +189,7 @@ module.exports.tradeBook = function(req, res){
 // @params myBookId, theirBookId
 // After this, my book becomes theirs, theirs becomes mine
 module.exports.tradeConfirm = function(req, res){
+    // Make both book avaiable again
     // First remove my book from me and their book from them
     // Empty the trade record
     // Exchange ownership of books
@@ -197,9 +198,14 @@ module.exports.tradeConfirm = function(req, res){
         let myBook = result[0]
         let theirBook = result[1]
 
+        myBook.availability = true
+        theirBook.availability = true
+
         return Promise.all([
         User.update({_id: myBook.owner}, { $pull: { books: myBook._id, tradeReceived: { mine: myBook._id } }}),
-        User.update({_id: theirBook.owner}, { $pull: { books: theirBook._id, tradeSent: {mine: theirBook._id} }})
+        User.update({_id: theirBook.owner}, { $pull: { books: theirBook._id, tradeSent: {mine: theirBook._id} }}),
+        myBook.save(),
+        theirBook.save()
         ]).then((result)=>{
             return Promise.all([
                 User.findById(myBook.owner),
@@ -230,7 +236,34 @@ module.exports.tradeConfirm = function(req, res){
 // Only the trade receiver can perform this action
 // @params myBookId, theirBookId
 module.exports.tradeReject = function(req, res){
-    
+    // Empty my tradeReceived and their tradeSent with the corresponding bookId
+    // Make both book avaiable again
+    let { myBookId, theirBookId } = req.body
+    // First empty my tradeReceived
+    Promise.all([Book.findById(myBookId), Book.findById(theirBookId)]).then((result)=>{
+        let myBook = result[0]
+        let theirBook = result[1]
+
+        myBook.availability = true
+        theirBook.availability = true
+
+        Promise.all([
+            User.update({_id: myBook.owner}, { $pull: { tradeReceived: { mine: myBook._id } }}),
+            User.update({_id: theirBook.owner}, { $pull: { tradeSent: {mine: theirBook._id} }}),
+            myBook.save(),
+            theirBook.save()
+        ]).then((result)=>{
+            res.json({
+                errorCode: 0,
+                msg: "trade reject success"
+            })
+        }).catch((err)=>{
+            res.json({
+                errorCode: 1,
+                msg: "trade reject fail"
+            })
+        })
+    })
 }
 
 // Only the trade sender can perform this action
