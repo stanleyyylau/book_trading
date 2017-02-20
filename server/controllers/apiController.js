@@ -184,3 +184,57 @@ module.exports.tradeBook = function(req, res){
         })
     })
 }
+
+// Only the trade receiver can perform this action
+// @params myBookId, theirBookId
+// After this, my book becomes theirs, theirs becomes mine
+module.exports.tradeConfirm = function(req, res){
+    // First remove my book from me and their book from them
+    // Empty the trade record
+    // Exchange ownership of books
+    let { myBookId, theirBookId } = req.body
+    Promise.all([Book.findById(myBookId), Book.findById(theirBookId)]).then((result)=>{
+        let myBook = result[0]
+        let theirBook = result[1]
+
+        return Promise.all([
+        User.update({_id: myBook.owner}, { $pull: { books: myBook._id, tradeReceived: { mine: myBook._id } }}),
+        User.update({_id: theirBook.owner}, { $pull: { books: theirBook._id, tradeSent: {mine: theirBook._id} }})
+        ]).then((result)=>{
+            return Promise.all([
+                User.findById(myBook.owner),
+                User.findById(theirBook.owner)
+            ])
+        })
+    }).then((result)=>{
+        let me = result[0]
+        let them = result[1]
+
+        me.books.push(theirBookId)
+        them.books.push(myBookId)
+
+        return Promise.all([me.save(), them.save()])
+    }).then((result)=>{
+        res.json({
+            errorCode: 0,
+            msg: "trade confirm success!"
+        })
+    }).catch((err)=>{
+        res.json({
+            errorCode: 1,
+            msg: "trade confirm fail!"
+        })
+    })
+}
+
+// Only the trade receiver can perform this action
+// @params myBookId, theirBookId
+module.exports.tradeReject = function(req, res){
+    
+}
+
+// Only the trade sender can perform this action
+// @params myBookId, theirBookId
+module.exports.tradeCancel = function(req, res){
+    
+}
