@@ -190,13 +190,16 @@ module.exports.tradeBook = function(req, res){
 // After this, my book becomes theirs, theirs becomes mine
 module.exports.tradeConfirm = function(req, res){
     // Make both book avaiable again
+    // Both books should change owner
     // First remove my book from me and their book from them
     // Empty the trade record
     // Exchange ownership of books
     let { myBookId, theirBookId } = req.body
+    var myBook
+    var theirBook
     Promise.all([Book.findById(myBookId), Book.findById(theirBookId)]).then((result)=>{
-        let myBook = result[0]
-        let theirBook = result[1]
+        myBook = result[0]
+        theirBook = result[1]
 
         myBook.availability = true
         theirBook.availability = true
@@ -209,7 +212,9 @@ module.exports.tradeConfirm = function(req, res){
         ]).then((result)=>{
             return Promise.all([
                 User.findById(myBook.owner),
-                User.findById(theirBook.owner)
+                User.findById(theirBook.owner),
+                myBook.save(),
+                theirBook.save()
             ])
         })
     }).then((result)=>{
@@ -219,7 +224,12 @@ module.exports.tradeConfirm = function(req, res){
         me.books.push(theirBookId)
         them.books.push(myBookId)
 
-        return Promise.all([me.save(), them.save()])
+         // Should change book owner here
+        let ownerTemp = myBook.owner
+        myBook.owner = theirBook.owner
+        theirBook.owner = ownerTemp
+
+        return Promise.all([me.save(), them.save(), myBook.save(), theirBook.save()])
     }).then((result)=>{
         res.json({
             errorCode: 0,
