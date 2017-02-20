@@ -308,3 +308,57 @@ module.exports.tradeCancel = function(req, res){
         })
     })    
 }
+
+module.exports.myPropose = function(req, res){
+    User.findById(req.decoded.id).populate({
+        path: 'tradeSent.mine',
+        model: 'Book'
+    }).populate({
+        path: 'tradeSent.theirs',
+        model: 'Book',
+        populate: {
+            path: 'owner',
+            model: 'User',
+            select: 'username email'
+        }
+    })
+    .then((result) => {
+        res.json({
+            errorCode: 0,
+            myName: result.username,
+            myPropose: result.tradeSent
+        })
+    }).catch((err)=>{
+        res.json({
+            errorCode: 1,
+            msg: err
+        })
+    })
+}
+
+module.exports.myReceive = function(req, res){
+    User.findById(req.decoded.id).populate({
+        path: 'tradeReceived.mine',
+        model: 'Book'
+    }).populate({
+        path: 'tradeReceived.theirs',
+        model: 'Book',
+        populate: {
+            path: 'owner',
+            model: 'User',
+            select: 'username email'
+        }
+    })
+    .then((result) => {
+        res.json({
+            errorCode: 0,
+            myName: result.username,
+            tradeReceived: result.tradeReceived
+        })
+    }).catch((err)=>{
+        res.json({
+            errorCode: 1,
+            msg: err
+        })
+    })    
+}

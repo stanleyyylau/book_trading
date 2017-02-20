@@ -22,6 +22,10 @@ app.post('/api/login', middleware.loggedOut, apiController.login)
 app.get('/api/logout', middleware.loggedIn, apiController.logout)
 app.get('/api/mybooks', middleware.loggedIn, apiController.getAllMyBooks)
 app.post('/api/trade', middleware.loggedIn, apiController.tradeBook)
+
+app.get('/api/mypropose', middleware.loggedIn, apiController.myPropose)
+app.get('/api/myreceive', middleware.loggedIn, apiController.myReceive)
+
 app.post('/api/tradeconfirm', middleware.loggedIn, apiController.tradeConfirm)
 app.post('/api/tradereject', middleware.loggedIn, apiController.tradeReject)
 app.post('/api/tradecancel', middleware.loggedIn, apiController.tradeCancel)
