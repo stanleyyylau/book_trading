@@ -269,5 +269,32 @@ module.exports.tradeReject = function(req, res){
 // Only the trade sender can perform this action
 // @params myBookId, theirBookId
 module.exports.tradeCancel = function(req, res){
-    
+    // Empty my tradeSent and their tradeReceived with the corresponding bookId
+    // Make both book avaiable again
+    let { myBookId, theirBookId } = req.body
+    // First empty my tradeSent
+    Promise.all([Book.findById(myBookId), Book.findById(theirBookId)]).then((result)=>{
+        let myBook = result[0]
+        let theirBook = result[1]
+
+        myBook.availability = true
+        theirBook.availability = true
+
+        Promise.all([
+            User.update({_id: myBook.owner}, { $pull: { tradeSent: { mine: myBook._id } }}),
+            User.update({_id: theirBook.owner}, { $pull: { tradeReceived: {mine: theirBook._id} }}),
+            myBook.save(),
+            theirBook.save()
+        ]).then((result)=>{
+            res.json({
+                errorCode: 0,
+                msg: "trade cancel success"
+            })
+        }).catch((err)=>{
+            res.json({
+                errorCode: 1,
+                msg: "trade cancel fail"
+            })
+        })
+    })    
 }
