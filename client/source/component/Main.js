@@ -1,5 +1,6 @@
 import React from 'React'
 import FlatButton from 'material-ui/FlatButton';
+import { Link } from 'react-router'
 
 const footerStyle = {
     position: "fixed",
@@ -16,13 +17,23 @@ const footerWrap = {
     marginTop: "100px"
 }
 
+const linkStyle = {
+    textDecoration: "none"
+}
+
 const Main = (props)=>{
     return (
         <div>
             <div className="nav-bar">
-                <FlatButton label="All Books" />
-                <FlatButton label="Login" />
-                <FlatButton label="Register" />
+                <Link to="/" style={linkStyle}>
+                    <FlatButton label="All Books" /> 
+                </Link>
+                <Link to="/login" style={linkStyle}>
+                    <FlatButton label="Login" /> 
+                </Link>
+                <Link to="/register" style={linkStyle}>
+                    <FlatButton label="Register" /> 
+                </Link>
             </div>
              {props.children}
             <div className="footer-wrap" style={footerWrap}></div>
