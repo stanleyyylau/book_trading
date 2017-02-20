@@ -119,3 +119,68 @@ module.exports.getAllMyBooks = function(req, res){
         })
     })
 }
+
+module.exports.tradeBook = function(req, res){
+    let { mineBookId, theirBookId } = req.body
+    let myBook = Book.findById(mineBookId)
+    let theirBook = Book.findById(theirBookId)
+
+    Promise.all([myBook, theirBook]).then(result => { 
+        let mine = result[0]
+        let theirs = result[1]
+
+        if(mine.availability === false){
+            res.json({
+                errorCode: 1,
+                msg: "You book is not available"
+            })
+        }
+
+        if(theirs.availability === false){
+            res.json({
+                errorCode: 1,
+                msg: "their book is not avaiable for trade right now"
+            })
+        }
+
+        // Todo, to the trading logic, which is weird...
+        // First make those two books not avaiable
+        mine.availability = false
+        theirs.availability = false
+
+        return Promise.all([mine.save(), theirs.save()])
+    }).then((result)=>{
+        let mine = result[0]
+        let theirs = result[1]
+
+        let me = User.findById(mine.owner)
+        let them = User.findById(theirs.owner)
+
+        return Promise.all([me, them])
+    }).then((result) => {
+        let me = result[0]
+        let them = result[1]
+
+        me.tradeSent.push({
+            mine: mineBookId,
+            theirs: theirBookId
+        })
+
+        them.tradeReceived.push({
+            mine: theirBookId,
+            theirs: mineBookId
+        })
+
+        return Promise.all([me.save(), them.save()])
+    }).then((result) => {
+        res.json({
+            errorCode: 0,
+            msg: "trade success!"
+        })
+    }).catch((err) => {
+        res.json({
+            errorCode: 1,
+            msg: err
+        })
+    })
+}
