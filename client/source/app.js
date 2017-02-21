@@ -5,13 +5,14 @@ import { Router, IndexRoute, Route, browserHistory, hashHistory } from "react-ro
 import "./css/reset.css"
 import "./css/global.css"
 
-import Main from './component/Main'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import LoginContainer from './container/LoginContainer'
 import RegisterContainer from './container/RegisterContainer'
 import AllBooksContainer from './container/AllBooksContainer'
+import MainContainer from './container/MainContainer'
+import addBookContainer from './container/AddBookContainer'
 
 
 injectTapEventPlugin();
@@ -19,9 +20,10 @@ injectTapEventPlugin();
 ReactDOM.render(
     <MuiThemeProvider>
         <Router history={ hashHistory }>
-            <Route path='/' component={ Main }>
+            <Route path='/' component={ MainContainer }>
                 <IndexRoute component={ AllBooksContainer } />
                 <Route path="register" component={ RegisterContainer } />
+                <Route path="addbook" component={ addBookContainer } />
                 <Route path="login" component={ LoginContainer } />               
             </Route>
         </Router>

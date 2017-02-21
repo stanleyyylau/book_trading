@@ -4,8 +4,19 @@ var helpers = {
   getAllBooks () {
     return axios.get('http://localhost:4545/api/allbooks')
   },
-  getAllPost: function(){
-    return axios.get('http://localhost:4545/admin/dashboard')
+  Login (email, password) {
+    return axios.post('http://localhost:4545/api/login', {
+        email: email,
+        password: password
+    })
+  },
+  setUpLoginHeader (token) {
+    return axios.defaults.headers.common['x-access-token'] = token;
+  },
+  searchBook (bookTitle){
+    return axios.post('http://localhost:4545/api/searchbook', {
+      title: bookTitle
+    })
   },
   deletePost: function(postId){
     return axios.post('http://localhost:4545/admin/dashboard/delete',{postId, postId})
