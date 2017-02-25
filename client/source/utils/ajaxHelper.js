@@ -14,8 +14,14 @@ var helpers = {
     return axios.defaults.headers.common['x-access-token'] = token;
   },
   searchBook (bookTitle){
-    return axios.post('http://localhost:4545/api/searchbook', {
-      title: bookTitle
+    return axios.get(`https://www.googleapis.com/books/v1/volumes?q=${bookTitle}+intitle`)
+  },
+  addBook (image, title, author){
+    return axios.post('http://localhost:4545/api/addbook', {
+        title: title,
+        author: author,
+        pages: "unknowed",
+        image: image
     })
   },
   deletePost: function(postId){

@@ -1,6 +1,7 @@
 import React from 'React'
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
+import SingleBook from './SingleBook'
 
 class SearchBox extends React.Component {
   constructor(props) {
@@ -24,7 +25,7 @@ class SearchBox extends React.Component {
 
   render() {
       return (
-        <div>
+        <div style={{textAlign: "center", marginBottom: "40px"}}>
             <TextField
                 hintText="Enter Book Title"
                 value = {this.state.searchTerm}
@@ -38,12 +39,45 @@ class SearchBox extends React.Component {
   }    
 }
 
+const resultWrapStyle = {
+    display: "flex",
+    flexWrap: "wrap",
+    alignItems: "center",
+}
+
+const singleBookStyle = {
+    maxWidth: "100%",
+    textAlign: "center"
+}
+
 const addBook = (props)=>{
+
+    var resultBooks = props.books.map((item)=>{
+        return (
+            <div key={item.id + "wrap"} style={{width: "25%", textAlign: "center"}} >
+                <SingleBook 
+                    style={singleBookStyle}
+                    key={item.id}
+                    imageUrl={item.volumeInfo.imageLinks.thumbnail}
+                    bookTitle={item.volumeInfo.title}
+                    bookAuthor={ item.volumeInfo.authors ? item.volumeInfo.authors[0] : ""}
+                />
+                <RaisedButton label="Add" primary={true} 
+                    key={item.id + "button"}
+                    onClick={()=> props.onAddingBook(item.volumeInfo.imageLinks.thumbnail, item.volumeInfo.title, item.volumeInfo.authors ? item.volumeInfo.authors[0] : "")}
+                />
+            </div>
+        )
+    })
+
     return (
         <div>
             <SearchBox 
                 onSearchSubmit={props.onSearchSubmit}
             />
+            <div className="result-wrap" style={resultWrapStyle}>
+                {resultBooks}
+            </div>
         </div>
     )
 };

@@ -2,7 +2,9 @@ import React from 'React'
 import SingleBook from './SingleBook'
 
 const style = {
-    display: 'flex'
+    display: 'flex',
+    alignItems: 'center',
+    flexWrap: 'wrap'
 }
 
 const AllBooks = (props)=>{

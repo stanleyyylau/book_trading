@@ -1,7 +1,7 @@
 const Book = require('./../models/Book')
 const User = require('./../models/User')
 
-const books = require('google-books-search');
+const ajaxHelper = require('./../utils/ajaxHelper')
 const jwt = require("jsonwebtoken");
 
 module.exports.allBooks = function(req, res) {
@@ -26,13 +26,13 @@ module.exports.getOneBook = function(req, res) {
 
 module.exports.searchBook = function(req, res) {
     let bookTitle = req.body.title
-    books.search(bookTitle, function(error, results) {
-        if ( ! error ) {
-            res.json(results)
-        } else {
-            res.json(error);
-        }
-    });    
+    ajaxHelper.searchBook(bookTitle)
+    .then(function(results) {
+        res.json(results);
+    })
+    .catch(function(error) {
+        res.json(error);
+    });   
 }
 
 module.exports.addBook = function(req, res) {
