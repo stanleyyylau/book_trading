@@ -1,7 +1,6 @@
 const Book = require('./../models/Book')
 const User = require('./../models/User')
 
-const ajaxHelper = require('./../utils/ajaxHelper')
 const jwt = require("jsonwebtoken");
 
 module.exports.allBooks = function(req, res) {
@@ -14,7 +13,7 @@ module.exports.allBooks = function(req, res) {
 
 module.exports.getOneBook = function(req, res) {
     let bookId = req.params.id
-    Book.findById(bookId).then((book) => {
+    Book.findById(bookId).populate('owner').then((book) => {
         res.json(book)
     }).catch((err) => {
         res.json({

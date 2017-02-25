@@ -24,6 +24,9 @@ var helpers = {
         image: image
     })
   },
+  getOneBook (id) {
+    return axios.get(`http://localhost:4545/api/book/${id}`)    
+  },
   deletePost: function(postId){
     return axios.post('http://localhost:4545/admin/dashboard/delete',{postId, postId})
   },

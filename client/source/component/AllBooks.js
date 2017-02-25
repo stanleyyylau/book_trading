@@ -12,6 +12,7 @@ const AllBooks = (props)=>{
     const allBookItems = props.books.map((item)=>{
         return <SingleBook 
                 key={item._id}
+                id={item._id}
                 imageUrl={item.image}
                 bookTitle={item.title}
                 bookAuthor={item.author}

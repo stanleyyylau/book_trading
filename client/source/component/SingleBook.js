@@ -1,4 +1,5 @@
 import React from 'React'
+import { Link } from 'react-router'
 
 const style = {
     width: "25%",
@@ -8,11 +9,13 @@ const style = {
 
 const SingleBook = (props)=>{
     return (
-        <div className="single-book-wrap" style={props.style || style} >
-            <img className="book-image" src={props.imageUrl} />
-            <h3 className="book-title">{props.bookTitle}</h3>
-            <p className="book-author">{props.bookAuthor}</p>
-        </div>
+        <Link to={"/book/" + props.id} style={props.style || style}>
+            <div className="single-book-wrap"  >
+                <img className="book-image" src={props.imageUrl} />
+                <h3 className="book-title">{props.bookTitle}</h3>
+                <p className="book-author">{props.bookAuthor}</p>
+            </div>
+        </Link>
     )
 }
 
