@@ -14,7 +14,7 @@ Build a full stack JavaScript app that is functionally similar to this: http://b
 <!--+ I can login-->
 <!--+ I can search for a new book after loging in-->
 <!--+ I can add a new book after login in-->
-+ I can view all my books
+<!--+ I can view all *my* books-->
 + I can view all the trades I proposed
 + I can view all the trades I received
 + I can update my settings to store my full name, city, and state.

@@ -66,6 +66,9 @@ const Main = (props)=>{
                     <Link to="/addbook" style={linkStyle}>
                         <FlatButton label="Add Book" /> 
                     </Link>
+                    <Link to="/mybooks" style={linkStyle}>
+                        <FlatButton label="My Books" /> 
+                    </Link>
                     { "Welcome " + props.userName }
                 </div>
                 {props.children}

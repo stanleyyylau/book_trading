@@ -27,6 +27,9 @@ var helpers = {
   getOneBook (id) {
     return axios.get(`http://localhost:4545/api/book/${id}`)    
   },
+  getAllMyBooks (){
+    return axios.get('http://localhost:4545/api/mybooks')   
+  },
   deletePost: function(postId){
     return axios.post('http://localhost:4545/admin/dashboard/delete',{postId, postId})
   },
