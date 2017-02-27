@@ -30,6 +30,12 @@ var helpers = {
   getAllMyBooks (){
     return axios.get('http://localhost:4545/api/mybooks')   
   },
+  getProfile(){
+    return axios.get('http://localhost:4545/api/profile') 
+  },
+  updateProfile(updateObj){
+    return axios.post('http://localhost:4545/api/profile', updateObj) 
+  },
   deletePost: function(postId){
     return axios.post('http://localhost:4545/admin/dashboard/delete',{postId, postId})
   },

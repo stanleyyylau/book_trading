@@ -22,5 +22,5 @@ Build a full stack JavaScript app that is functionally similar to this: http://b
 + <del>I can view all *my* books</del>
 + I can view all the trades I proposed
 + I can view all the trades I received
-+ I can update my settings to store my full name, city, and state.
++ <del>I can update my settings to store my full name, city, and state.</del>
 + I can propose a trade and wait for the other user to accept the trade.

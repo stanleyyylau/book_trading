@@ -15,6 +15,7 @@ import MainContainer from './container/MainContainer'
 import addBookContainer from './container/AddBookContainer'
 import BookDetailContainer from './container/BookDetailContainer'
 import myBooksContainer from './container/myBooksContainer'
+import profileContainer from './container/profileContainer'
 
 
 injectTapEventPlugin();
@@ -28,7 +29,8 @@ ReactDOM.render(
                 <Route path="addbook" component={ addBookContainer } />
                 <Route path="login" component={ LoginContainer } /> 
                 <Route path="book/:id" component={ BookDetailContainer } /> 
-                <Route path="mybooks" component={ myBooksContainer } />               
+                <Route path="mybooks" component={ myBooksContainer } />   
+                <Route path="profile" component={ profileContainer } />               
             </Route>
         </Router>
     </MuiThemeProvider>
