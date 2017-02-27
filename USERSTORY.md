@@ -12,6 +12,7 @@ Build a full stack JavaScript app that is functionally similar to this: http://b
 + <del>User model require fullname/username, city and state</del>
 + <del>get /api/profile will return all my profile information</del>
 + <del>post /api/profile will update all my profile information</del>
++ After register/login, token will be return and cookie will be contain the token too
 
 ## Frontend
 + <del>I can view all books posted by every user.</del>
