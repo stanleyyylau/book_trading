@@ -9,9 +9,9 @@ Build a full stack JavaScript app that is functionally similar to this: http://b
 
 
 ## Backend
-+ User model require fullname/username, city and state
-+ get /api/profile will return all my profile information
-+ post /api/profile will update all my profile information
+<!--+ User model require fullname/username, city and state-->
+<!--+ get /api/profile will return all my profile information-->
+<!--+ post /api/profile will update all my profile information-->
 
 ## Frontend
 <!--+ I can view all books posted by every user.-->

@@ -119,6 +119,38 @@ module.exports.getAllMyBooks = function(req, res){
     })
 }
 
+// getProfile
+module.exports.getProfile = function(req, res){
+    User.findById(req.decoded.id).then((user)=>{
+        res.json({
+            errorCode: 0,
+            profile: user
+        })
+    })
+}
+
+module.exports.updateProfile = function(req, res){
+    var updateObj = {
+        username: req.body.username,
+        city: req.body.city,
+        state: req.body.state
+    }
+
+    User.findByIdAndUpdate(req.decoded.id, updateObj).then((user)=>{
+        return User.findById(req.decoded.id)
+    }).then((user)=>{
+        res.json({
+            errorCode: 0,
+            profile: user
+        })        
+    }).catch((err)=>{
+        res.json({
+            errorCode: 1,
+            error: err
+        })
+    })
+}
+
 module.exports.tradeBook = function(req, res){
     let { mineBookId, theirBookId } = req.body
     let myBook = Book.findById(mineBookId)

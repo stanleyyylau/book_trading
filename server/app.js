@@ -46,6 +46,9 @@ app.post('/api/tradeconfirm', middleware.loggedIn, apiController.tradeConfirm)
 app.post('/api/tradereject', middleware.loggedIn, apiController.tradeReject)
 app.post('/api/tradecancel', middleware.loggedIn, apiController.tradeCancel)
 
+app.get('/api/profile', middleware.loggedIn, apiController.getProfile)
+app.post('/api/profile', middleware.loggedIn, apiController.updateProfile)
+
 app.post('/api/addbook', middleware.loggedIn, apiController.addBook)
 
 // TODO: Swap for server-side universal react routing
