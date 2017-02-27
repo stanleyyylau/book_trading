@@ -20,7 +20,6 @@ const AllBooks = (props)=>{
     })
     return (
         <div>
-            <h1>View All Books</h1>
             <div className="all-books-wrap" style={style}>
                 {allBookItems}
             </div>

@@ -16,6 +16,9 @@ import addBookContainer from './container/AddBookContainer'
 import BookDetailContainer from './container/BookDetailContainer'
 import myBooksContainer from './container/myBooksContainer'
 import profileContainer from './container/profileContainer'
+import BooksContainer from './container/BooksContainer'
+import tradeSentContainer from './container/tradeSentContainer'
+import tradeReceiveContainer from './container/tradeReceiveContainer'
 
 
 injectTapEventPlugin();
@@ -29,8 +32,12 @@ ReactDOM.render(
                 <Route path="addbook" component={ addBookContainer } />
                 <Route path="login" component={ LoginContainer } /> 
                 <Route path="book/:id" component={ BookDetailContainer } /> 
-                <Route path="mybooks" component={ myBooksContainer } />   
-                <Route path="profile" component={ profileContainer } />               
+                <Route path="profile" component={ profileContainer } />
+                <Route path="mybooks" component={ BooksContainer } >
+                    <IndexRoute component={ myBooksContainer } />
+                    <Route path="tradesent" component={ tradeSentContainer } />
+                    <Route path="tradereceive" component={ tradeReceiveContainer } />
+                </Route>      
             </Route>
         </Router>
     </MuiThemeProvider>

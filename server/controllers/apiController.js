@@ -354,6 +354,7 @@ module.exports.myPropose = function(req, res){
         }
     })
     .then((result) => {
+        console.log(result)
         res.json({
             errorCode: 0,
             myName: result.username,

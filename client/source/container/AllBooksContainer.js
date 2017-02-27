@@ -21,7 +21,9 @@ class AllBooksContainer extends React.Component {
   }
 
   render() {
-    return <AllBooks books={this.state.books} />
+    return (
+      <AllBooks books={this.state.books} />
+    )
   }
 }
 

@@ -24,7 +24,6 @@ class myBooksContainer extends React.Component {
   render() {   
     return (
         <div>
-            <h2> Here's a list of all your books...</h2>
             <AllBooks books={this.state.myBooks} />
         </div>  
     )

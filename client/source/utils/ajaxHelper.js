@@ -36,6 +36,12 @@ var helpers = {
   updateProfile(updateObj){
     return axios.post('http://localhost:4545/api/profile', updateObj) 
   },
+  myPropose() {
+    return axios.get('http://localhost:4545/api/mypropose') 
+  },
+  myReceive() {
+    return axios.get('http://localhost:4545/api/myreceive') 
+  },
   deletePost: function(postId){
     return axios.post('http://localhost:4545/admin/dashboard/delete',{postId, postId})
   },
