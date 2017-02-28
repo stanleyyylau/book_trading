@@ -7,7 +7,7 @@ class tradeReceiveContainer extends React.Component {
     super(props);
 
     this.state = {
-      log: null,
+      log: []
     };
   }
 
@@ -15,8 +15,19 @@ class tradeReceiveContainer extends React.Component {
     const self = this
     ajaxHelper.myReceive().then((result)=>{
         console.log(result)
+        // Todo: to some stuff before resetting state
+        var log = result.data.tradeReceived.map((item)=>{
+          return {
+            myBookTitle: item.mine.title,
+            myBookImage: item.mine.image,
+            myBookId: item.mine._id,
+            theirBookName: item.theirs.title,
+            theirName: item.theirs.owner.username,
+            theirBookId: item.theirs._id
+          }
+        })
         self.setState({
-            log: result.data
+            log: log
         })
     })
   }
@@ -24,9 +35,10 @@ class tradeReceiveContainer extends React.Component {
   render() {
     return (
       <div>
-        <h2> displaying the book i receive..</h2>
-        <ReceiveLog/>
-      </div>
+        <ReceiveLog
+         books={this.state.log}
+        />
+      </div>  
     )
   }
 }

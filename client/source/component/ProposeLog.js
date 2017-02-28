@@ -1,15 +1,15 @@
 import React from 'React'
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
+import { Link } from 'react-router'
 
 const style = {
-    maxWidth: "500px",
+    width: "1000px",
     margin: "0 auto",
     textAlign: "center",
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -60%)"
+    border: "1px solid gray",
+    marginBottom: "10px",
+    padding: "15px"
 }
 
 const registerStyle = {
@@ -17,12 +17,28 @@ const registerStyle = {
 }
 
 const ProposeLog = (props)=>{
-    return (
-        <div className="register-wrap" style={style}>
-            <h1>display all propose information here</h1>
-            <div>
-                You want to trade your book {myBookTitle} with {theirName} 's book {theirBookName}
+
+    if (props.books.length == 0){
+        return (
+                <div>
+                    <h1>No information</h1>
+                </div>
+                )
+    }
+
+    var allLogs = props.books.map((item)=>{
+        return (
+            <div key={item.myBookTitle} style={style}>
+                You want to trade your book 
+                <Link to={"book/"+item.myBookId}><strong>{item.myBookTitle}</strong></Link> with <strong>{item.theirName}</strong> 's book <Link to={"book/"+item.theirBookId}><strong>{item.theirBookName}</strong></Link>
+                <RaisedButton label="Cancel Trade" primary={true} />
             </div>
+        )
+    })
+
+    return (
+        <div className="register-wrap">
+            {allLogs}
         </div>
     )
 }

@@ -61,7 +61,6 @@ class profileContainer extends React.Component {
   render() {   
     return (
         <div>
-            <h2> Here you can view and update your profile...</h2>
             <Profile
               onProfileUpdate = {this.onProfileUpdate.bind(this)}
               username = {this.state.username}
