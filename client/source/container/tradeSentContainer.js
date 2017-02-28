@@ -32,11 +32,28 @@ class tradeSentContainer extends React.Component {
     })
   }
 
+  tradeCancel(myBookId, theirBookId){
+    var self = this
+
+    console.log('your book id is ...')
+    console.log(myBookId)
+    console.log('their book id is ...')
+    console.log(theirBookId)
+    return;
+    ajaxHelper.cancalTrade(myBookId, theirBookId).then((result)=>{
+      if(result.data.errorCode == 0){
+        console.log('Trade cancel done...')
+        //Todo: We need to redirect or get the log again
+      }
+    })
+  }
+
   render() {
     return (
       <div>
         <ProposeLog
          books={this.state.log}
+         tradeCancel={this.tradeCancel.bind(this)}
         />
       </div>  
     )

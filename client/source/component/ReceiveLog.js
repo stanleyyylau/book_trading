@@ -31,8 +31,8 @@ const ProposeLog = (props)=>{
             <div key={item.myBookTitle} style={style}>
                 Your book 
                 <Link to={"book/"+item.myBookId}><strong>{item.myBookTitle}</strong></Link> Receive a trade from <strong>{item.theirName}</strong> 's <Link to={"book/"+item.theirBookId}><strong>{item.theirBookName}</strong></Link>
-                <RaisedButton label="Confirm Trade" primary={true} />
-                <RaisedButton label="Reject Trade" secondary={true} />
+                <RaisedButton label="Confirm Trade" primary={true} onClick={ ()=> props.confirmTrade(item.myBookId, item.theirBookId) } />
+                <RaisedButton label="Reject Trade" secondary={true} onClick={ ()=> props.rejectTrade(item.myBookId, item.theirBookId) } />
             </div>
         )
     })

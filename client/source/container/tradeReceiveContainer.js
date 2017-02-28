@@ -32,11 +32,25 @@ class tradeReceiveContainer extends React.Component {
     })
   }
 
+  confirmTrade(myBookId, theirBookId){
+    console.log('confirm trade...')
+    console.log(myBookId)
+    console.log(theirBookId)
+  }
+
+  rejectTrade(myBookId, theirBookId){
+    console.log('reject trade...')
+    console.log(myBookId)
+    console.log(theirBookId)
+  }
+
   render() {
     return (
       <div>
         <ReceiveLog
          books={this.state.log}
+         confirmTrade={this.confirmTrade.bind(this)}
+         rejectTrade={this.rejectTrade.bind(this)}
         />
       </div>  
     )

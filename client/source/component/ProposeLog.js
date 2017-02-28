@@ -31,7 +31,7 @@ const ProposeLog = (props)=>{
             <div key={item.myBookTitle} style={style}>
                 You want to trade your book 
                 <Link to={"book/"+item.myBookId}><strong>{item.myBookTitle}</strong></Link> with <strong>{item.theirName}</strong> 's book <Link to={"book/"+item.theirBookId}><strong>{item.theirBookName}</strong></Link>
-                <RaisedButton label="Cancel Trade" primary={true} />
+                <RaisedButton label="Cancel Trade" primary={true} onClick={ ()=>props.tradeCancel(item.myBookId, item.theirBookId) } />
             </div>
         )
     })
