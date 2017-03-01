@@ -33,6 +33,7 @@ class tradeReceiveContainer extends React.Component {
   }
 
   confirmTrade(myBookId, theirBookId){
+    var self = this
     console.log('confirm trade...')
     console.log(myBookId)
     console.log(theirBookId)
@@ -53,6 +54,7 @@ class tradeReceiveContainer extends React.Component {
                 theirBookId: item.theirs._id
               }
             })
+            console.log(self)
             self.setState({
                 log: log
             })
@@ -62,6 +64,7 @@ class tradeReceiveContainer extends React.Component {
   }
 
   rejectTrade(myBookId, theirBookId){
+    var self = this
     console.log('reject trade...')
     console.log(myBookId)
     console.log(theirBookId)
@@ -82,6 +85,7 @@ class tradeReceiveContainer extends React.Component {
                 theirBookId: item.theirs._id
               }
             })
+            console.log(self)
             self.setState({
                 log: log
             })

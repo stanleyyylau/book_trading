@@ -69,7 +69,7 @@ var helpers = {
   },
   tradeBook(myBookId, theirBookId){
     return axios.post('http://localhost:4545/api/trade', {
-      myBookId: myBookId,
+      mineBookId: myBookId,
       theirBookId: theirBookId
     })
   },
