@@ -1,5 +1,6 @@
 import React from 'React'
 import Register from './../component/Register'
+import ajaxHelper from './../utils/ajaxHelper'
 
 
 class RegisterContainer extends React.Component {
@@ -30,9 +31,14 @@ class RegisterContainer extends React.Component {
   }
 
   onLoginSubmit(event) {
+      var self = this
       console.log(this.state)
       // Todo: make ajax call to get back token
-
+      ajaxHelper.register(self.state.userName, self.state.email, self.state.password).then((result)=>{
+        if(result.data.errorCode == 0){
+          self.context.router.push('/login')
+        }
+      })
   }  
 
   render() {
@@ -48,6 +54,10 @@ class RegisterContainer extends React.Component {
         </div>
     )
   }
+}
+
+RegisterContainer.contextTypes = {
+    router: React.PropTypes.object.isRequired
 }
 
 export default RegisterContainer
