@@ -4,6 +4,13 @@ var helpers = {
   getAllBooks () {
     return axios.get('/api/allbooks')
   },
+  register(username, email, password) {
+    return axios.post('/api/register',{
+      username: username,
+      email: email,
+      password: password
+    })
+  },
   Login (email, password) {
     return axios.post('/api/login', {
         email: email,
