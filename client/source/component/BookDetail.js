@@ -13,7 +13,7 @@ const BookDetail = (props)=>{
             <h3 className="book-title">{props.title}</h3>
             <p className="book-author">{props.author}</p>
             <p className="book-owner">Owner: {props.owner}</p>
-            {props.availability ? <RaisedButton label="Trade" primary={true} /> : <RaisedButton label="Trade" disabled={true} style={style} />}
+            {props.availability ? <RaisedButton label="Trade" primary={true} onClick={props.rejectTrade} /> : <RaisedButton label="Trade" disabled={true} style={style} />}
         </div>
     )
 }

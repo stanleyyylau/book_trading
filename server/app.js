@@ -42,6 +42,7 @@ app.post('/api/trade', middleware.loggedIn, apiController.tradeBook)
 app.get('/api/mypropose', middleware.loggedIn, apiController.myPropose)
 app.get('/api/myreceive', middleware.loggedIn, apiController.myReceive)
 
+app.post('/api/tradecheck', middleware.loggedIn, apiController.tradeCheck)
 app.post('/api/tradeconfirm', middleware.loggedIn, apiController.tradeConfirm)
 app.post('/api/tradereject', middleware.loggedIn, apiController.tradeReject)
 app.post('/api/tradecancel', middleware.loggedIn, apiController.tradeCancel)

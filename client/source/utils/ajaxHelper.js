@@ -62,6 +62,17 @@ var helpers = {
       theirBookId: theirBookId
     }) 
   },
+  checkBeforeTrade(ownerIdToCheck){
+    return axios.post('http://localhost:4545/api/tradecheck', {
+      ownerIdToCheck: ownerIdToCheck
+    })
+  },
+  tradeBook(myBookId, theirBookId){
+    return axios.post('http://localhost:4545/api/trade', {
+      myBookId: myBookId,
+      theirBookId: theirBookId
+    })
+  },
   deletePost: function(postId){
     return axios.post('http://localhost:4545/admin/dashboard/delete',{postId, postId})
   },

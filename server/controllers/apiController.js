@@ -216,6 +216,21 @@ module.exports.tradeBook = function(req, res){
     })
 }
 
+module.exports.tradeCheck = function(req, res){
+    var ownerIdToCheck = req.body.ownerIdToCheck
+    console.log('decoded id is...')
+    console.log(req.decoded.id)
+    if(ownerIdToCheck == req.decoded.id){
+        res.json({
+            errorCode: 1
+        })
+    }else{
+        res.json({
+            errorCode: 0
+        })
+    }
+}
+
 // Only the trade receiver can perform this action
 // @params myBookId, theirBookId
 // After this, my book becomes theirs, theirs becomes mine

@@ -12,6 +12,7 @@ class BookDetailContainer extends React.Component {
       image: "",
       author: "",
       owner: "",
+      owner_id: null,
       availability: null
     };
   }
@@ -28,9 +29,26 @@ class BookDetailContainer extends React.Component {
             image: result.image,
             author: result.author,
             owner: result.owner.username,
+            owner_id: result.owner.username,
             availability: result.availability
         })
     })
+  }
+
+  onTradeClick() {
+    console.log('running trade logic...')
+    var self = this
+    if(!self.state.availability){
+      return
+    }else{
+      // Todo: user can't trade with themself
+      ajaxHelper.checkBeforeTrade(self.state.owner_id).then((result)=>{
+        if(result.data.errorCode === 0){
+          // Todo: perform the actual trade
+          
+        }
+      })
+    }
   }
 
   render() {
@@ -42,6 +60,7 @@ class BookDetailContainer extends React.Component {
             author={this.state.author}
             owner={this.state.owner}
             availability={this.state.availability}
+            onTradeClick={this.onTradeClick.bind(this)}
         />
     )
   }
