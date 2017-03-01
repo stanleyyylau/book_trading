@@ -59,6 +59,7 @@ app.get("/*", (req, res, next) => {
 
 // Error handling here
 app.use((req, res) => {
+  res.send('index.html')
   res.status(404).send('We can\' find what you\'re looking for');
 })
 
