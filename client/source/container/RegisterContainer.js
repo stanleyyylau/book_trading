@@ -56,7 +56,7 @@ class RegisterContainer extends React.Component {
   }
 }
 
-LoginContainer.contextTypes = {
+RegisterContainer.contextTypes = {
     router: React.PropTypes.object.isRequired
 }
 

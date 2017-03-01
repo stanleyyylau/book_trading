@@ -41316,7 +41316,7 @@
 	  return RegisterContainer;
 	}(_React2.default.Component);
 
-	LoginContainer.contextTypes = {
+	RegisterContainer.contextTypes = {
 	  router: _React2.default.PropTypes.object.isRequired
 	};
 
